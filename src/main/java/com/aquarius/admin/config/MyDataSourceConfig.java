@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -18,7 +17,9 @@ import java.util.Arrays;
  * @Date: 2021/12/8
  * @Description:
  */
-@Configuration
+//过时
+@Deprecated
+//@Configuration
 public class MyDataSourceConfig {
 
     // @ConditionalOnClass({DataSource.class, EmbeddedDatabaseType.class})
@@ -28,7 +29,7 @@ public class MyDataSourceConfig {
     public DataSource dataSource() throws SQLException {
         DruidDataSource source = new DruidDataSource();
         // 加入监控功能
-        source.setFilters("stat");
+//        source.setFilters("stat,wall");
         return source;
     }
 
@@ -40,6 +41,8 @@ public class MyDataSourceConfig {
     public ServletRegistrationBean statViewServlet(){
         StatViewServlet statViewServlet = new StatViewServlet();
         ServletRegistrationBean<StatViewServlet> registrationBean = new ServletRegistrationBean<>(statViewServlet,"/druid/*");
+        registrationBean.addInitParameter("loginUsername","druid");
+        registrationBean.addInitParameter("loginPassword","druid");
         return registrationBean;
 
     }

@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
+//@MapperScan("com.aquarius.admin.mapper") 进行扫描，使得在Mapper接口不需要在添加@Mappper注解
 @ServletComponentScan(basePackages = "com.aquarius.admin")
 @SpringBootApplication
 public class BootWebAdminApplication {

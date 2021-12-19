@@ -12,6 +12,41 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+
+    druid:
+      aop-patterns: com.aquarius.admin.* #监控SpringBean
+
+      filters: sata,wall,slf4j #底层开启功能 sata(sql监控) wall(防火墙)
+
+      stat-view-servlet: #配置监控页功能
+        enabled: true
+        login-username: druid
+        login-password: druid
+        reset-enable: false
+
+      web-stat-filter: #监控web
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+      filter:
+        stat: #对上面filter里面的sata的详细配置
+          slow-sql-millis: 1000
+          log-slow-sql: true
+          enabled: true
+        wall:
+          enabled: true
+          config:
+            drop-table-allow: false
+
   jdbc:
     template:
       query-timeout: 3
+
+#配置mybatis规则
+mybatis:
+#  config-location: classpath:mybatis/mybatis-config.xml #全局配置文件位置
+#  可以不写全局；配置文件，所有全局配置文件的配置都放在configuration配置项中即可
+  mapper-locations: classpath:mybatis/mapper/*.xml #sql映射文件位置
+  configuration: #指定mybatis全局配置文件中的相关配置项
+    map-underscore-to-camel-case: true #开启驼峰命名
