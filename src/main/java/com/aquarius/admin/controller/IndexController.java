@@ -7,6 +7,8 @@ import com.aquarius.admin.servlet.AccountService;
 import com.aquarius.admin.servlet.CityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +30,13 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     @Autowired
-    JdbcTemplate                              jdbcTemplate;
+    JdbcTemplate   jdbcTemplate;
     @Autowired
     AccountService accountService;
     @Autowired
-    CityService cityService;
+    CityService    cityService;
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     @ResponseBody
     @PostMapping("addCity")
@@ -90,6 +94,12 @@ public class IndexController {
 //            return "main";
 //        }
 //        model.addAttribute("msg","请重新登录");
+
+        ValueOperations<String, String> operations = redisTemplate.opsForValue();
+        String s = operations.get("/main.html");
+        String sql = operations.get("/sql");
+        model.addAttribute("mainCount",s);
+        model.addAttribute("sqlCount",sql);
         return "main";
     }
 }

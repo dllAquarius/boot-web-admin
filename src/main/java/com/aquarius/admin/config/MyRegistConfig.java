@@ -2,7 +2,7 @@ package com.aquarius.admin.config;
 
 import com.aquarius.admin.filter.MyFilter;
 import com.aquarius.admin.listener.MyServletContextListener;
-import com.aquarius.admin.servlet.MyServlet;
+import com.aquarius.admin.servlet.impl.MyServlet;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;

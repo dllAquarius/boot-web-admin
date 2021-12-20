@@ -1,4 +1,4 @@
-package com.aquarius.admin.servlet;
+package com.aquarius.admin.servlet.impl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
